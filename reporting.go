@@ -24,7 +24,7 @@ func (c *Client) DownloadFinanceReports(ctx context.Context, q *DownloadFinanceR
 		return err
 	}
 
-	u := c.URL.JoinPath("/v1/financeReports")
+	u := c.URL.JoinPath("v1/financeReports")
 	u.RawQuery = v.Encode()
 
 	req, err := c.newRequest(ctx, http.MethodGet, u, nil)

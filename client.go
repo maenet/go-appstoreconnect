@@ -2,6 +2,7 @@ package appstoreconnect
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -52,4 +53,10 @@ func (c *Client) newRequest(ctx context.Context, method string, u *url.URL, body
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.Token))
 
 	return req, nil
+}
+
+func decodeBody(resp *http.Response, out interface{}) error {
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	return decoder.Decode(out)
 }
